@@ -762,6 +762,38 @@ dialog.modal[open] { animation: modalIn .4s var(--ease); }
 .modal-close { position: absolute; top: 12px; right: 12px; z-index: 2; }
 
 /* =========================================================
+   11b. EXPERIENCE
+   ========================================================= */
+.exp-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+.exp { position: relative; display: flex; flex-direction: column; gap: 16px; padding: clamp(22px, 3vw, 30px); overflow: hidden; }
+.exp::before { content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); transform: scaleY(0); transform-origin: 50% 0; transition: transform .6s var(--ease-out); }
+.exp.in::before, .reveal.in.exp::before { transform: scaleY(1); }
+.exp-top { display: flex; align-items: center; gap: 16px; }
+.exp-logo { flex: none; width: 68px; height: 68px; border-radius: 18px; background: #fff; border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; box-shadow: var(--shadow); transition: transform var(--dur-2) var(--ease-out); }
+.exp-logo img { width: 100%; height: 100%; object-fit: contain; }
+.exp-logo.mono { background: var(--accent); color: #fff; font: 600 1.9rem var(--serif); border-color: transparent; }
+.exp:hover .exp-logo { transform: rotate(-4deg) scale(1.05); }
+.exp-head { min-width: 0; }
+.exp-head h3 { font-size: 1.25rem; line-height: 1.25; }
+.exp-org { display: block; margin-top: 4px; color: var(--ink-soft); font-weight: 500; font-size: .95rem; }
+.exp-meta { display: flex; flex-wrap: wrap; gap: 8px; }
+.exp-chip { display: inline-flex; align-items: center; gap: 6px; padding: 5px 12px; border-radius: 999px; font: 500 .74rem var(--mono); border: 1px solid var(--line); background: var(--bg); color: var(--ink-soft); }
+.exp-chip.kind { background: var(--accent); border-color: var(--accent); color: #fff; }
+.exp-chip.now::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #3fb950; box-shadow: 0 0 0 0 rgba(63,185,80,.5); animation: expPulse 2s infinite; }
+@keyframes expPulse { 70% { box-shadow: 0 0 0 7px rgba(63,185,80,0); } 100% { box-shadow: 0 0 0 0 rgba(63,185,80,0); } }
+.exp p { color: var(--ink-soft); font-size: .95rem; }
+.exp-roles { list-style: none; position: relative; display: grid; gap: 16px; padding-left: 22px; }
+.exp-roles::before { content: ""; position: absolute; left: 5px; top: 8px; bottom: 8px; width: 1px; background: var(--line); }
+.exp-roles li { position: relative; }
+.exp-roles li::before { content: ""; position: absolute; left: -22px; top: 6px; width: 11px; height: 11px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.exp-role-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 4px 12px; }
+.exp-role-top b { font-weight: 600; }
+.exp-role-top span { font: 500 .74rem var(--mono); color: var(--accent-text); }
+.exp-roles p { margin-top: 4px; }
+@media (prefers-reduced-motion: reduce) { .exp-chip.now::before { animation: none; } .exp::before { transition: none; } }
+@media (max-width: 860px) { .exp-grid { grid-template-columns: 1fr; } .exp-logo { width: 58px; height: 58px; border-radius: 15px; } }
+
+/* =========================================================
    14. TEACHING
    ========================================================= */
 .teach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
@@ -1208,11 +1240,23 @@ html.reduced .card:hover { transform: none; }
     </div>
   </section>
 
-  <!-- ============ EDUCATION + LANGUAGES ============ -->
-  <section id="education" class="alt">
+  <!-- ============ EXPERIENCE ============ -->
+  <section id="experience" class="alt">
     <div class="container">
       <div class="sec-head sec-scene" data-scene>
-        <span class="kicker"><span class="num">05</span><span data-i18n="edu.kicker"></span></span>
+        <span class="kicker"><span class="num">05</span><span data-i18n="exp.kicker"></span></span>
+        <h2 data-i18n="exp.title" data-split></h2>
+        <p data-i18n="exp.lead"></p>
+      </div>
+      <div class="exp-grid" id="expGrid"></div>
+    </div>
+  </section>
+
+  <!-- ============ EDUCATION + LANGUAGES ============ -->
+  <section id="education">
+    <div class="container">
+      <div class="sec-head sec-scene" data-scene>
+        <span class="kicker"><span class="num">06</span><span data-i18n="edu.kicker"></span></span>
         <h2 data-i18n="edu.title" data-split></h2>
       </div>
       <div class="edu-grid">
@@ -1229,10 +1273,10 @@ html.reduced .card:hover { transform: none; }
   </section>
 
   <!-- ============ CERTIFICATES ============ -->
-  <section id="certificates">
+  <section id="certificates" class="alt">
     <div class="container">
       <div class="sec-head sec-scene" data-scene>
-        <span class="kicker"><span class="num">06</span><span data-i18n="certs.kicker"></span></span>
+        <span class="kicker"><span class="num">07</span><span data-i18n="certs.kicker"></span></span>
         <h2 data-i18n="certs.title" data-split></h2>
         <p data-i18n="certs.lead"></p>
       </div>
@@ -1244,10 +1288,10 @@ html.reduced .card:hover { transform: none; }
   </section>
 
   <!-- ============ TEACHING (optional) ============ -->
-  <section id="teaching" class="alt">
+  <section id="teaching">
     <div class="container">
       <div class="sec-head sec-scene" data-scene>
-        <span class="kicker"><span class="num">07</span><span data-i18n="teach.kicker"></span></span>
+        <span class="kicker"><span class="num">08</span><span data-i18n="teach.kicker"></span></span>
         <h2 data-i18n="teach.title" data-split></h2>
         <p data-i18n="teach.lead"></p>
       </div>
@@ -1256,10 +1300,10 @@ html.reduced .card:hover { transform: none; }
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section id="contact">
+  <section id="contact" class="alt">
     <div class="container contact-grid">
       <div>
-        <span class="kicker reveal"><span class="num">08</span><span data-i18n="contact.kicker"></span></span>
+        <span class="kicker reveal"><span class="num">09</span><span data-i18n="contact.kicker"></span></span>
         <div class="c-who reveal" id="cWho" hidden>
           <span class="avatar"><img id="avatarImg" alt="" width="64" height="64" loading="lazy" decoding="async"></span>
           <span class="c-who-t"><b id="cWhoName"></b><small data-i18n="photo.role"></small></span>
@@ -1413,6 +1457,29 @@ const CONTENT = {
     { n: 'JavaScript' }
   ],
 
+  /* logo: şəkil yolu; yoxdursa mono hərf göstərilir. now: true → "davam edir" işarəsi */
+  experience: [
+    { logo: 'images/logos/shane-academy.jpg', now: true, main: true,
+      kind: { az: 'Hazırkı iş', en: 'Current' },
+      period: { az: 'Sentyabr 2026 — indi', en: 'Sep 2026 — present' },
+      t: 'Shane Academy',
+      org: { az: 'Müəllim · Study Abroad stajyeri', en: 'Teacher · Study Abroad Intern' },
+      roles: [
+        { t: { az: 'Study Abroad üzrə stajyer', en: 'Study Abroad Intern' }, p: { az: 'Oktyabr 2026 — indi', en: 'Oct 2026 — present' },
+          d: { az: 'Tələbələr üçün xaricdə universitet və proqram araşdırması, büdcəyə uyğun seçimlər və müraciət prosesinin izlənməsi.', en: 'Researching universities and programs abroad for students, finding options that fit their budget, and tracking applications.' } },
+        { t: { az: 'Müəllim', en: 'Teacher' }, p: { az: 'Sentyabr 2026 — indi', en: 'Sep 2026 — present' },
+          d: { az: 'Ümumi ingilis dili, CSCA fizika və DİM riyaziyyat dərsləri, öz hazırladığım materiallarla.', en: 'General English, CSCA physics and DİM math classes, using materials I prepare myself.' } }
+      ],
+      tags: ['Study Abroad', { az: 'Tədris', en: 'Teaching' }, { az: 'Tələbə məsləhəti', en: 'Student advising' }] },
+    { logo: 'images/logos/eyler-academy.jpg',
+      kind: { az: 'Tədris', en: 'Teaching' },
+      period: { az: 'İyul — Sentyabr 2026', en: 'Jul — Sep 2026' },
+      t: { az: 'Köməkçi müəllim — İnformatika və Riyaziyyat', en: 'Teaching Assistant — Computer Science & Math' },
+      org: 'Eyler Academy',
+      d: { az: '3 ay ərzində informatika və riyaziyyat dərslərində köməkçi müəllim kimi çalışdım, şagirdlərə mövzuları izah etdim və tapşırıqlarda kömək etdim.', en: 'Worked for 3 months as a teaching assistant in computer science and math classes, explaining topics to students and helping them with their assignments.' },
+      tags: [{ az: 'İnformatika', en: 'Computer Science' }, { az: 'Riyaziyyat', en: 'Math' }, { az: 'Tədris', en: 'Teaching' }] }
+  ],
+
   education: [
     { year: { az: '2026 — 2031 (gözlənilən)', en: '2026 — 2031 (expected)' },
       t: { az: 'Bakı Ali Neft Məktəbi (BHOS)', en: 'Baku Higher Oil School (BHOS)' },
@@ -1456,11 +1523,11 @@ const CONTENT = {
       t: { az: 'Təhsildə yüksək nəticəyə görə Diplom', en: 'Diploma for academic excellence' },
       by: { az: 'Qaradağ Rayon İcra Hakimiyyəti', en: 'Garadagh District Executive Authority' },
       d: { az: '2026-cı ildə ali məktəblərə qəbul imtahanlarında 635,3 bal toplayaraq göstərdiyim yüksək nəticəyə görə təltif olunmuşam.', en: 'Awarded for scoring 635.3 points in the 2026 university entrance exams.' } },
-    { kind: 'seminar', icon: 'mic', image: '', year: '',
+    { kind: 'seminar', icon: 'mic', images: ['images/certs/abb-innovation-seminar.jpg'], year: '',
       t: { az: 'ABB Innovation seminarları', en: 'ABB Innovation seminars' },
       by: 'ABB',
       d: { az: 'İnnovasiya və texnologiya mövzusunda seminarlarda iştirak.', en: 'Attended seminars on innovation and technology.' } },
-    { kind: 'seminar', icon: 'spark', image: '', year: '',
+    { kind: 'seminar', icon: 'spark', images: ['images/certs/ai-seminar.jpg'], year: '',
       t: { az: 'Süni intellekt seminarları', en: 'AI seminars' },
       by: { az: 'Müxtəlif təşkilatçılar', en: 'Various organizers' },
       d: { az: 'Süni intellekt mövzusunda müxtəlif seminarlarda iştirak.', en: 'Attended various seminars on Artificial Intelligence.' } }
@@ -1511,6 +1578,7 @@ const CONTENT = {
       'f.all': 'Hamısı', 'f.business': 'Biznes', 'f.web': 'Veb', 'f.robotics': 'Robototexnika', 'f.python': 'Python',
       'p.live': 'Canlı', 'p.code': 'Kod', 'p.soon': 'Tezliklə', 'p.liveBadge': 'Canlı', 'p.here': 'Buradasan',
       'learn.title': 'Hazırda öyrənirəm', 'learn.prog': 'davam edir',
+      'exp.kicker': 'Təcrübə', 'exp.title': 'Harada çalışmışam.', 'exp.lead': 'Real işdə, real insanlarla qazandığım təcrübə.',
       'edu.kicker': 'Təhsil və dillər', 'edu.title': 'Haradan gəlirəm, hara gedirəm.', 'edu.sub': 'Təhsil',
       'lang.title': 'Dillər',
       'certs.kicker': 'Sertifikatlar və seminarlar', 'certs.title': 'Öyrənmək üçün getdiyim yerlər.',
@@ -1556,6 +1624,7 @@ const CONTENT = {
       'f.all': 'All', 'f.business': 'Business', 'f.web': 'Web', 'f.robotics': 'Robotics', 'f.python': 'Python',
       'p.live': 'Live', 'p.code': 'Code', 'p.soon': 'Coming soon', 'p.liveBadge': 'Live', 'p.here': 'You’re here',
       'learn.title': 'Now learning', 'learn.prog': 'in progress',
+      'exp.kicker': 'Experience', 'exp.title': 'Where I’ve worked.', 'exp.lead': 'Hands-on experience, gained with real people on real work.',
       'edu.kicker': 'Education & languages', 'edu.title': 'Where I’m from, where I’m headed.', 'edu.sub': 'Education',
       'lang.title': 'Languages',
       'certs.kicker': 'Seminars & certificates', 'certs.title': 'Places I went to learn.',
@@ -1771,6 +1840,26 @@ function renderLearning() {
     `<span class="learn-item"><span class="pulse-dot" aria-hidden="true"></span>${esc(t(l.n))}<small>${esc(ui('learn.prog'))}</small></span>`).join('');
 }
 
+function renderExperience() {
+  $('#expGrid').innerHTML = CONTENT.experience.map((x, i) => `
+    <article class="card exp tilt reveal" style="--d:${i * 100}ms">
+      <div class="exp-top">
+        <span class="exp-logo ${x.logo ? '' : 'mono'}">${x.logo ? `<img src="${esc(x.logo)}" alt="" width="68" height="68" loading="lazy" decoding="async">` : `<span aria-hidden="true">${esc(x.mono || '')}</span>`}</span>
+        <div class="exp-head">
+          <h3>${esc(t(x.t))}</h3>
+          <span class="exp-org">${esc(t(x.org))}</span>
+        </div>
+      </div>
+      <div class="exp-meta">
+        <span class="exp-chip kind">${esc(t(x.kind))}</span>
+        <span class="exp-chip ${x.now ? 'now' : ''}">${esc(t(x.period))}</span>
+      </div>
+      ${x.roles ? `<ol class="exp-roles">${x.roles.map(r => `
+        <li><div class="exp-role-top"><b>${esc(t(r.t))}</b><span>${esc(t(r.p))}</span></div><p>${esc(t(r.d))}</p></li>`).join('')}</ol>` : `<p>${esc(t(x.d))}</p>`}
+      <div class="tags">${x.tags.map(g => `<span class="tag">${esc(t(g))}</span>`).join('')}</div>
+    </article>`).join('');
+}
+
 function renderEducation() {
   $('#timeline').innerHTML = CONTENT.education.map((e, i) => `
     <li class="tl-item reveal ${e.future ? 'future' : ''}" style="--d:${i * 100}ms">
@@ -1841,7 +1930,7 @@ let photoInit = false;
 function renderAll(isUpdate) {
   if (!photoInit) { photoInit = true; initPhoto(); }
   renderStatic(); renderHeroMeta(); renderStats(); renderSkills(); renderBasko();
-  renderProjects(); renderLearning(); renderEducation(); renderCerts(); renderTeaching(); renderContact();
+  renderProjects(); renderLearning(); renderExperience(); renderEducation(); renderCerts(); renderTeaching(); renderContact();
   splitWords(); observeCerts(); measureHero();
   if (isUpdate) $$('.reveal').forEach(el => el.classList.add('in'));
   else observeReveals();
@@ -2132,7 +2221,7 @@ certScene.addEventListener('focusin', e => {
    SECTION RAIL (desktop dot navigation, right edge)
    ========================================================= */
 const SECTIONS = [['home', 'nav.home'], ['about', 'nav.about'], ['skills', 'nav.skills'], ['basko', 'nav.basko'], ['projects', 'nav.projects'],
-  ['education', 'edu.sub'], ['certificates', 'nav.certs'], ['teaching', 'teach.kicker'], ['contact', 'nav.contact']];
+  ['experience', 'exp.kicker'], ['education', 'edu.sub'], ['certificates', 'nav.certs'], ['teaching', 'teach.kicker'], ['contact', 'nav.contact']];
 const rail = document.createElement('nav');
 rail.className = 'rail'; rail.id = 'rail'; rail.dataset.i18nAria = 'rail.aria';
 rail.innerHTML = '<ol>' + SECTIONS.filter(([id]) => document.getElementById(id)).map(([id, k]) =>
